@@ -1,6 +1,9 @@
 #CSCI 4370/6370 Database Management
 
-Project 1
+##Project
+
+###No.
+1
 
 ###Description
 Implement RA Operators: Select, Project, Union, Minus and Join
