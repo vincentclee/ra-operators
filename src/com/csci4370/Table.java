@@ -540,9 +540,27 @@ public class Table
      */
     private boolean typeCheck (Comparable [] t)
     { 
-        //TODO:  T O   B E   I M P L E M E N T E D 
+      //TODO:  CHECK THE SIZE OF THE TUPLE
 
-        return true;
+      // iterate over t and check each element to make sure it matches with what is in this.domain
+      for(int i = 0; i < t.length; i++)
+      {
+	try
+	{
+	  // return false if there is a mismatch
+	  if(!Class.forName("java.lang." + this.domain[i]).equals(t[i].getClass()))
+	  {
+	    return false;
+	  }// if
+	}// try
+	catch(ClassNotFoundException ex)
+	{
+	  out.println("typeCheck: " + ex);
+	}// catch
+      }// for
+      
+      // return true if all elements in both arrays match up
+      return true;
     } // typeCheck
 
     /************************************************************************************
