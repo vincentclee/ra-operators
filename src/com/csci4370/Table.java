@@ -584,25 +584,35 @@ public class Table implements Serializable {
 	 *         the given domains
 	 */
 	private boolean typeCheck(Comparable[] t) {
-		// TODO: CHECK THE SIZE OF THE TUPLE
 
-		boolean currentItemValid;
+		// TODO: VERIFY TUPLE STATE
 		
+		boolean currentItemValid;
+
+		// Iterate through all inputs
 		for (Comparable item : t) {
-			
+
 			currentItemValid = false;
-			
+
+			// Verify input against all possibly classes within the domain
 			for (Class classTypes : this.domain) {
+
+				// If item is some subclass of a given type within domain,
+				// accept it
 				if (classTypes.isAssignableFrom(item.getClass())) {
 					currentItemValid = true;
+					break;
 				}
 			}
+
+			// If the type of the given item within the input is not of
+			// subclassable type of any item within the domain, reject the input
 			if (!currentItemValid) {
 				return false;
 			}
 		}
 		return true;
-	} // typeCheck
+	}
 
 	/************************************************************************************
 	 * Find the classes in the "java.lang" package with given names.
