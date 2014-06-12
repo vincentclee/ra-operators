@@ -545,6 +545,19 @@ public class Table
       // iterate over t and check each element to make sure it matches with what is in this.domain
       for(int i = 0; i < t.length; i++)
       {
+      	// checks if all the tuples iterated has the size enforced by domain size or not
+      	// I wasn't sure if length works here or it is better to use getMemorySize as domain is an object
+      	try 
+      	{
+      		if(!lenght(this.domain[i]).equals(length(t[i])))
+      		{
+      			return false;
+      		}
+      	}
+      	catch (ArrayStoreException ex)
+      	{
+      		out.println("typeCheck: " + ex);
+      	}
 	try
 	{
 	  // return false if there is a mismatch
