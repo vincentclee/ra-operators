@@ -1,4 +1,4 @@
-package com.csci4370;
+package com.csci4370.impl;
 
 /****************************************************************************************
  * @file  Table.java
@@ -165,10 +165,11 @@ public class Table implements Serializable {
 		rows = new ArrayList<Comparable[]>();
 
 		// Iterate through tuples
-		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
+		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet()) {
 			// use the extract method to only select the colums needed
 			// add to the rows List
 			rows.add(extract(e.getValue(), attrs));
+		}
 
 		return new Table(name + count++, attrs, colDomain, newKey, rows);
 	} // project
@@ -586,7 +587,7 @@ public class Table implements Serializable {
 	private boolean typeCheck(Comparable[] t) {
 
 		// TODO: VERIFY TUPLE STATE
-		
+
 		boolean currentItemValid;
 
 		// Iterate through all inputs
