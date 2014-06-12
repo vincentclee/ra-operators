@@ -13,6 +13,7 @@ import java.util.stream.*;
 
 import static java.lang.Boolean.*;
 import static java.lang.System.out;
+import static java.lang.System.err;
 
 /****************************************************************************************
  * This class implements relational database tables (including attribute names,
@@ -481,10 +482,10 @@ public class Table implements Serializable {
 			tab = (Table) ois.readObject();
 			ois.close();
 		} catch (IOException ex) {
-			out.println("load: IO Exception");
+			err.println("load: IO Exception");
 			ex.printStackTrace();
 		} catch (ClassNotFoundException ex) {
-			out.println("load: Class Not Found Exception");
+			err.println("load: Class Not Found Exception");
 			ex.printStackTrace();
 		} // try
 		return tab;
@@ -500,7 +501,7 @@ public class Table implements Serializable {
 			oos.writeObject(this);
 			oos.close();
 		} catch (IOException ex) {
-			out.println("save: IO Exception");
+			err.println("save: IO Exception");
 			ex.printStackTrace();
 		} // try
 	} // save
@@ -629,7 +630,7 @@ public class Table implements Serializable {
 			try {
 				classArray[i] = Class.forName("java.lang." + className[i]);
 			} catch (ClassNotFoundException ex) {
-				out.println("findClass: " + ex);
+				err.println("findClass: " + ex);
 			} // try
 		} // for
 
