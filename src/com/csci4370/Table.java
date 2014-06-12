@@ -586,34 +586,21 @@ public class Table implements Serializable {
 	private boolean typeCheck(Comparable[] t) {
 		// TODO: CHECK THE SIZE OF THE TUPLE
 
-		// iterate over t and check each element to make sure it matches with
-		// what is in this.domain
-		for (int i = 0; i < t.length; i++) {
-			// checks if all the tuples iterated has the size enforced by domain
-			// size or not
-			// I wasn't sure if length works here or it is better to use
-			// getMemorySize as domain is an object
-			try {
-				if (!length(this.domain[i]).equals(length(t[i]))) {
-					return false;
+		boolean currentItemValid;
+		
+		for (Comparable item : t) {
+			
+			currentItemValid = false;
+			
+			for (Class classTypes : this.domain) {
+				if (classTypes.isAssignableFrom(item.getClass())) {
+					currentItemValid = true;
 				}
-			} catch (ArrayStoreException ex) {
-				out.println("typeCheck: " + ex);
+			}
+			if (!currentItemValid) {
 				return false;
 			}
-			try {
-				// return false if there is a mismatch
-				if (!Class.forName("java.lang." + this.domain[i]).equals(
-						t[i].getClass())) {
-					return false;
-				}// if
-			}// try
-			catch (ClassNotFoundException ex) {
-				out.println("typeCheck: " + ex);
-				return false;
-			}// catch
-		}// for
-			// return true if all elements in both arrays match up
+		}
 		return true;
 	} // typeCheck
 
