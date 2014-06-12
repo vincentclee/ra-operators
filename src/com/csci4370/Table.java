@@ -41,26 +41,26 @@ public class Table
 
     /** Array of attribute names.
      */
-    private final String [] attribute;
+    private final String[] attribute;
 
     /** Array of attribute domains: a domain may be
      *  integer types: Long, Integer, Short, Byte
      *  real types: Double, Float
      *  string types: Character, String
      */
-    private final Class [] domain;
+    private final Class[] domain;
 
     /** Collection of tuples (data storage).
      */
-    private final List <Comparable []> tuples;
+    private final List<Comparable[]> tuples;
 
     /** Primary key. 
      */
-    private final String [] key;
+    private final String[] key;
 
     /** Index into tuples (maps key to tuple number).
      */
-    private final Map <KeyType, Comparable []> index;
+    private final Map<KeyType, Comparable[]> index;
 
     //----------------------------------------------------------------------------------
     // Constructors
@@ -74,14 +74,14 @@ public class Table
      * @param _domain     the string containing attribute domains (data types)
      * @param _key        the primary key
      */  
-    public Table (String _name, String [] _attribute, Class [] _domain, String [] _key)
+    public Table(String _name, String[] _attribute, Class[] _domain, String[] _key)
     {
         name      = _name;
         attribute = _attribute;
         domain    = _domain;
         key       = _key;
-        tuples    = new ArrayList <> ();
-        index     = new TreeMap <> ();       // also try BPTreeMap, LinHashMap or ExtHashMap
+        tuples    = new ArrayList<>();
+        index     = new TreeMap<>();       // also try BPTreeMap, LinHashMap or ExtHashMap
     } // constructor
 
     /************************************************************************************
@@ -93,15 +93,15 @@ public class Table
      * @param _key        the primary key
      * @param _tuple      the list of tuples containing the data
      */  
-    public Table (String _name, String [] _attribute, Class [] _domain, String [] _key,
-                  List <Comparable []> _tuples)
+    public Table(String _name, String[] _attribute, Class[] _domain, String[] _key,
+                  List<Comparable[]> _tuples)
     {
         name      = _name;
         attribute = _attribute;
         domain    = _domain;
         key       = _key;
         tuples    = _tuples;
-        index     = new TreeMap <> ();       // also try BPTreeMap, LinHashMap or ExtHashMap
+        index     = new TreeMap<>();       // also try BPTreeMap, LinHashMap or ExtHashMap
     } // constructor
 
     /************************************************************************************
@@ -111,11 +111,11 @@ public class Table
      * @param attributes  the string containing attributes names
      * @param domains     the string containing attribute domains (data types)
      */
-    public Table (String name, String attributes, String domains, String _key)
+    public Table(String name, String attributes, String domains, String _key)
     {
-        this (name, attributes.split (" "), findClass (domains.split (" ")), _key.split(" "));
+        this(name, attributes.split(" "), findClass(domains.split(" ")), _key.split(" "));
 
-        out.println ("DDL> create table " + name + " (" + attributes + ")");
+        out.println("DDL> create table " + name + " (" + attributes + ")");
     } // constructor
 
     //----------------------------------------------------------------------------------
@@ -131,27 +131,27 @@ public class Table
      * @param attributes  the attributes to project onto
      * @return  a table of projected tuples
      */
-    public Table project (String attributes)
+    public Table project(String attributes)
     {
-        out.println ("RA> " + name + ".project (" + attributes + ")");
-        String [] attrs     = attributes.split (" ");
-        Class []  colDomain = extractDom (match (attrs), domain);
-        String [] newKey    = (Arrays.asList (attrs).containsAll (Arrays.asList (key))) ? key : attrs;
+        out.println("RA> " + name + ".project (" + attributes + ")");
+        String[] attrs     = attributes.split(" ");
+        Class[]  colDomain = extractDom(match(attrs), domain);
+        String[] newKey    = (Arrays.asList(attrs).containsAll(Arrays.asList(key))) ? key : attrs;
         
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
         
         //TODO:  T O   B E   I M P L E M E N T E D
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<Comparable[]>();
         
         //Iterate through tuples
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ())
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
         	//use the extract method to only select the colums needed
         	//add to the rows List
         	rows.add(extract(e.getValue(), attrs));
         
-        return new Table (name + count++, attrs, colDomain, newKey, rows);
+        return new Table(name + count++, attrs, colDomain, newKey, rows);
     } // project
 
     /************************************************************************************
@@ -162,25 +162,25 @@ public class Table
      * @param predicate  the check condition for tuples
      * @return  a table with tuples satisfying the predicate
      */
-    public Table select (Predicate <Comparable []> predicate)
+    public Table select (Predicate<Comparable[]> predicate)
     {
-        out.println ("RA> " + name + ".select (" + predicate + ")");
+        out.println("RA> " + name + ".select (" + predicate + ")");
         
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
         
         //TODO:  T O   B E   I M P L E M E N T E D 
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<Comparable[]>();
         
         //Iterate through tuples
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ())
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
         	//do a predicate test on the tuple
         	//add matches into the List
         	if (predicate.test(e.getValue()))
         		rows.add(e.getValue());
         
-        return new Table (name + count++, attribute, domain, key, rows);
+        return new Table(name + count++, attribute, domain, key, rows);
     } // select
 
     /************************************************************************************
@@ -192,14 +192,14 @@ public class Table
      */
     public Table select (KeyType keyVal)
     {
-        out.println ("RA> " + name + ".select (" + keyVal + ")");
+        out.println("RA> " + name + ".select (" + keyVal + ")");
 
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
 
         //TODO:  T O   B E   I M P L E M E N T E D 
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<Comparable[]>();
         
         //Get the tuple which has the corresponding key
         rows.add(index.get(keyVal));
@@ -215,29 +215,29 @@ public class Table
      * @param table2  the rhs table in the union operation
      * @return  a table representing the union
      */
-    public Table union (Table table2)
+    public Table union(Table table2)
     {
         out.println ("RA> " + name + ".union (" + table2.name + ")");
-        if (! compatible (table2)) return null;
+        if (!compatible(table2)) return null;
 
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
 
         //TODO:  T O   B E   I M P L E M E N T E D 
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<>();
         
         //Iterate through current tuples
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ())
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
         	//Add current table tupples
         	rows.add(e.getValue());
         
         //Iterate through table2 tuples
-        for (Map.Entry <KeyType, Comparable []> e : table2.index.entrySet ())
+        for (Map.Entry<KeyType,Comparable[]> e : table2.index.entrySet())
         	//Add table2 table tupples
         	rows.add(e.getValue());
         
-        return new Table (name + count++, attribute, domain, key, rows);
+        return new Table(name + count++, attribute, domain, key, rows);
     } // union
 
     /************************************************************************************
@@ -249,12 +249,12 @@ public class Table
      * @param table2  The rhs table in the minus operation
      * @return  a table representing the difference
      */
-    public Table minus (Table table2)
+    public Table minus(Table table2)
     {
         out.println ("RA> " + name + ".minus (" + table2.name + ")");
-        if (! compatible (table2)) return null;
+        if (!compatible (table2)) return null;
 
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
 
         //TODO:  T O   B E   I M P L E M E N T E D 
         
@@ -276,15 +276,15 @@ public class Table
          */
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<Comparable[]>();
         
         //Iterate through tuples
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ())
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
         	//If key is in the table2 map then do not add to List
         	if (!table2.index.containsKey(e.getKey()))
         		rows.add(e.getValue());
         
-        return new Table (name + count++, attribute, domain, key, rows);
+        return new Table(name + count++, attribute, domain, key, rows);
     } // minus
 
     /************************************************************************************
@@ -300,32 +300,32 @@ public class Table
      * @param table2      the rhs table in the join operation
      * @return  a table with tuples satisfying the equality predicate
      */
-    public Table join (String attributes1, String attributes2, Table table2)
+    public Table join(String attributes1, String attributes2, Table table2)
     {
-        out.println ("RA> " + name + ".join (" + attributes1 + ", " + attributes2 + ", "
+        out.println("RA> " + name + ".join (" + attributes1 + ", " + attributes2 + ", "
                                                + table2.name + ")");
 
-        String [] t_attrs = attributes1.split (" ");
-        String [] u_attrs = attributes2.split (" ");
+        String[] t_attrs = attributes1.split(" ");
+        String[] u_attrs = attributes2.split(" ");
 
-        List <Comparable []> rows = null;
+        List<Comparable[]> rows = null;
 
         //TODO:  T O   B E   I M P L E M E N T E D 
         
         //Intialize data structure
-        rows = new ArrayList <> ();
+        rows = new ArrayList<Comparable[]>();
         
         //Iterate through tuples
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ()) {
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet()) {
         	//Get the tuple from table2 which matches with the foreign key from current table
-        	Comparable [] table2Temp = table2.index.get(new KeyType(extract(e.getValue(), t_attrs)));
+        	Comparable[] table2Temp = table2.index.get(new KeyType(extract(e.getValue(), t_attrs)));
         	
         	//Check if tupple from table2 exists
-        	if (table2Temp == null)
+        	if (table2Temp == null) {
         		continue;
-        	
+        	}
         	//Create a new tupple for concat
-        	Comparable [] combined = new Comparable [attribute.length + table2.attribute.length];
+        	Comparable[] combined = new Comparable[attribute.length + table2.attribute.length];
         	
         	//Do the concat
         	System.arraycopy(e.getValue(), 0, combined, 0, e.getValue().length);
@@ -335,8 +335,8 @@ public class Table
         	rows.add(combined);
         }
         
-        return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
-                                          ArrayUtil.concat (domain, table2.domain), key, rows);
+        return new Table(name + count++, ArrayUtil.concat(attribute, table2.attribute),
+                                         ArrayUtil.concat(domain, table2.domain), key, rows);
     } // join
 
     /************************************************************************************
@@ -345,10 +345,10 @@ public class Table
      * @param attr  the given attribute name
      * @return  a column position
      */
-    public int col (String attr)
+    public int col(String attr)
     {
         for (int i = 0; i < attribute.length; i++) {
-           if (attr.equals (attribute [i])) return i;
+           if (attr.equals(attribute[i])) return i;
         } // for
 
         return -1;  // not found
@@ -362,16 +362,18 @@ public class Table
      * @param tup  the array of attribute values forming the tuple
      * @return  whether insertion was successful
      */
-    public boolean insert (Comparable [] tup)
+    public boolean insert(Comparable[] tup)
     {
-        out.println ("DML> insert into " + name + " values ( " + Arrays.toString (tup) + " )");
+        out.println("DML> insert into " + name + " values ( " + Arrays.toString(tup) + " )");
 
-        if (typeCheck (tup)) {
-            tuples.add (tup);
-            Comparable [] keyVal = new Comparable [key.length];
-            int []        cols   = match (key);
-            for (int j = 0; j < keyVal.length; j++) keyVal [j] = tup [cols [j]];
-            index.put (new KeyType (keyVal), tup);
+        if (typeCheck(tup)) {
+            tuples.add(tup);
+            Comparable[] keyVal = new Comparable[key.length];
+            int[]          cols = match (key);
+            for (int j = 0; j < keyVal.length; j++) {
+            	keyVal[j] = tup[cols[j]];
+            }
+            index.put(new KeyType (keyVal), tup);
             return true;
         } else {
             return false;
@@ -383,7 +385,7 @@ public class Table
      *
      * @return  the table's name
      */
-    public String getName ()
+    public String getName()
     {
         return name;
     } // getName
@@ -391,39 +393,49 @@ public class Table
     /************************************************************************************
      * Print this table.
      */
-    public void print ()
+    public void print()
     {
-        out.println ("\n Table " + name);
-        out.print ("|-");
-        for (int i = 0; i < attribute.length; i++) out.print ("---------------");
-        out.println ("-|");
-        out.print ("| ");
-        for (String a : attribute) out.printf ("%15s", a);
-        out.println (" |");
-        out.print ("|-");
-        for (int i = 0; i < attribute.length; i++) out.print ("---------------");
-        out.println ("-|");
-        for (Comparable [] tup : tuples) {
-            out.print ("| ");
-            for (Comparable attr : tup) out.printf ("%15s", attr);
-            out.println (" |");
+        out.println("\n Table " + name);
+        out.print("|-");
+        for (int i = 0; i < attribute.length; i++) {
+        	out.print("---------------");
+        }
+        out.println("-|");
+        out.print("| ");
+        for (String a : attribute) {
+        	out.printf("%15s", a);
+        }
+        out.println(" |");
+        out.print("|-");
+        for (int i = 0; i < attribute.length; i++) {
+        	out.print("---------------");
+        }
+        out.println("-|");
+        for (Comparable[] tup : tuples) {
+            out.print("| ");
+            for (Comparable attr : tup) {
+            	out.printf("%15s", attr);
+            }
+            out.println(" |");
         } // for
-        out.print ("|-");
-        for (int i = 0; i < attribute.length; i++) out.print ("---------------");
-        out.println ("-|");
+        out.print("|-");
+        for (int i = 0; i < attribute.length; i++) {
+        	out.print("---------------");
+        }
+        out.println("-|");
     } // print
 
     /************************************************************************************
      * Print this table's index (Map).
      */
-    public void printIndex ()
+    public void printIndex()
     {
-        out.println ("\n Index for " + name);
-        out.println ("-------------------");
-        for (Map.Entry <KeyType, Comparable []> e : index.entrySet ()) {
-            out.println (e.getKey () + " -> " + Arrays.toString (e.getValue ()));
+        out.println("\n Index for " + name);
+        out.println("-------------------");
+        for (Map.Entry<KeyType, Comparable[]> e : index.entrySet()) {
+            out.println (e.getKey() + " -> " + Arrays.toString(e.getValue()));
         } // for
-        out.println ("-------------------");
+        out.println("-------------------");
     } // printIndex
 
     /************************************************************************************
@@ -431,19 +443,19 @@ public class Table
      *
      * @param name  the name of the table to load
      */
-    public static Table load (String name)
+    public static Table load(String name)
     {
         Table tab = null;
         try {
-            ObjectInputStream ois = new ObjectInputStream (new FileInputStream (DIR + name + EXT));
-            tab = (Table) ois.readObject ();
-            ois.close ();
-        } catch (IOException ex) {
-            out.println ("load: IO Exception");
-            ex.printStackTrace ();
-        } catch (ClassNotFoundException ex) {
-            out.println ("load: Class Not Found Exception");
-            ex.printStackTrace ();
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DIR + name + EXT));
+            tab = (Table)ois.readObject ();
+            ois.close();
+        } catch(IOException ex) {
+            out.println("load: IO Exception");
+            ex.printStackTrace();
+        } catch(ClassNotFoundException ex) {
+            out.println("load: Class Not Found Exception");
+            ex.printStackTrace();
         } // try
         return tab;
     } // load
@@ -451,15 +463,15 @@ public class Table
     /************************************************************************************
      * Save this table in a file.
      */
-    public void save ()
+    public void save()
     {
         try {
-            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream (DIR + name + EXT));
-            oos.writeObject (this);
-            oos.close ();
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DIR + name + EXT));
+            oos.writeObject(this);
+            oos.close();
         } catch (IOException ex) {
-            out.println ("save: IO Exception");
-            ex.printStackTrace ();
+            out.println("save: IO Exception");
+            ex.printStackTrace();
         } // try
     } // save
 
@@ -474,15 +486,15 @@ public class Table
      * @param table2  the rhs table
      * @return  whether the two tables are compatible
      */
-    private boolean compatible (Table table2)
+    private boolean compatible(Table table2)
     {
         if (domain.length != table2.domain.length) {
-            out.println ("compatible ERROR: table have different arity");
+            out.println("compatible ERROR: table have different arity");
             return false;
         } // if
         for (int j = 0; j < domain.length; j++) {
-            if (domain [j] != table2.domain [j]) {
-                out.println ("compatible ERROR: tables disagree on domain " + j);
+            if (domain[j] != table2.domain[j]) {
+                out.println("compatible ERROR: tables disagree on domain " + j);
                 return false;
             } // if
         } // for
@@ -495,20 +507,20 @@ public class Table
      * @param column  the array of column names
      * @return  an array of column index positions
      */
-    private int [] match (String [] column)
+    private int[] match(String[] column)
     {
-        int [] colPos = new int [column.length];
+        int[] colPos = new int[column.length];
 
         for (int j = 0; j < column.length; j++) {
             boolean matched = false;
             for (int k = 0; k < attribute.length; k++) {
-                if (column [j].equals (attribute [k])) {
+                if (column[j].equals (attribute[k])) {
                     matched = true;
-                    colPos [j] = k;
+                    colPos[j] = k;
                 } // for
             } // for
-            if ( ! matched) {
-                out.println ("match: domain not found for " + column [j]);
+            if (!matched) {
+                out.println("match: domain not found for " + column[j]);
             } // if
         } // for
 
@@ -522,11 +534,11 @@ public class Table
      * @param column  the array of column names
      * @return  a smaller tuple extracted from tuple t 
      */
-    private Comparable [] extract (Comparable [] t, String [] column)
+    private Comparable[] extract(Comparable[] t, String[] column)
     {
-        Comparable [] tup = new Comparable [column.length];
-        int [] colPos = match (column);
-        for (int j = 0; j < column.length; j++) tup [j] = t [colPos [j]];
+        Comparable[] tup = new Comparable[column.length];
+        int[] colPos = match(column);
+        for (int j = 0; j < column.length; j++) tup[j] = t[colPos[j]];
         return tup;
     } // extract
 
@@ -538,18 +550,18 @@ public class Table
      * @return  whether the tuple has the right size and values that comply
      *          with the given domains
      */
-    private boolean typeCheck (Comparable [] t)
+    private boolean typeCheck(Comparable[] t)
     { 
       //TODO:  CHECK THE SIZE OF THE TUPLE
 
       // iterate over t and check each element to make sure it matches with what is in this.domain
-      for(int i = 0; i < t.length; i++)
+      for (int i = 0; i < t.length; i++)
       {
       	// checks if all the tuples iterated has the size enforced by domain size or not
       	// I wasn't sure if length works here or it is better to use getMemorySize as domain is an object
       	try 
       	{
-      		if(!lenght(this.domain[i]).equals(length(t[i])))
+      		if (!length(this.domain[i]).equals(length(t[i])))
       		{
       			return false;
       		}
@@ -561,7 +573,7 @@ public class Table
 	try
 	{
 	  // return false if there is a mismatch
-	  if(!Class.forName("java.lang." + this.domain[i]).equals(t[i].getClass()))
+	  if (!Class.forName("java.lang." + this.domain[i]).equals(t[i].getClass()))
 	  {
 	    return false;
 	  }// if
@@ -582,15 +594,15 @@ public class Table
      * @param className  the array of class name (e.g., {"Integer", "String"})
      * @return  an array of Java classes
      */
-    private static Class [] findClass (String [] className)
+    private static Class[] findClass(String[] className)
     {
-        Class [] classArray = new Class [className.length];
+        Class[] classArray = new Class[className.length];
 
         for (int i = 0; i < className.length; i++) {
             try {
-                classArray [i] = Class.forName ("java.lang." + className [i]);
-            } catch (ClassNotFoundException ex) {
-                out.println ("findClass: " + ex);
+                classArray[i] = Class.forName("java.lang." + className[i]);
+            } catch(ClassNotFoundException ex) {
+                out.println("findClass: " + ex);
             } // try
         } // for
 
@@ -604,12 +616,12 @@ public class Table
      * @param group  where to extract from
      * @return  the extracted domains
      */
-    private Class [] extractDom (int [] colPos, Class [] group)
+    private Class[] extractDom (int[] colPos, Class[] group)
     {
-        Class [] obj = new Class [colPos.length];
+        Class[] obj = new Class[colPos.length];
 
         for (int j = 0; j < colPos.length; j++) {
-            obj [j] = group [colPos [j]];
+            obj[j] = group[colPos[j]];
         } // for
 
         return obj;
