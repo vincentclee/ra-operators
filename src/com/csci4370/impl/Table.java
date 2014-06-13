@@ -161,31 +161,32 @@ public class Table implements Serializable {
 				: attrs;
 
 		List<Comparable[]> rows = null;
-		
+
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
-		
+
 		/*
-		 * Used for checking if projected tuple is a duplicate (Avoids O(n^2) searching)
-		 * hashCode() is from original object not the projected object?
+		 * Used for checking if projected tuple is a duplicate (Avoids O(n^2)
+		 * searching) hashCode() is from original object not the projected
+		 * object?
 		 */
 		List<Integer> deepHashCodes = new ArrayList<Integer>();
-		
+
 		// Iterate through tuples
 		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet()) {
 			// use the extract method to only select the colums needed
 			Comparable[] tuple = extract(e.getValue(), attrs);
-			
+
 			// Generate a Deep Hash Code
 			int deepHashCode = Arrays.deepHashCode(tuple);
-			
+
 			// If this tuple is a duplicate, don't add to rows List
-			if (deepHashCodes.contains(deepHashCode))
+			if (deepHashCodes.contains(deepHashCode)) {
 				continue;
-			
+			}
 			// add to the rows List
 			rows.add(tuple);
-			
+
 			// add to the deepHashCodes List
 			deepHashCodes.add(deepHashCode);
 		}
@@ -216,9 +217,9 @@ public class Table implements Serializable {
 		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
 			// do a predicate test on the tuple
 			// add matches into the List
-			if (predicate.test(e.getValue()))
+			if (predicate.test(e.getValue())) {
 				rows.add(e.getValue());
-
+			}
 		return new Table(name + count++, attribute, domain, key, rows);
 	} // select
 
@@ -257,9 +258,11 @@ public class Table implements Serializable {
 	 */
 	public Table union(Table table2) {
 		out.println("RA> " + name + ".union (" + table2.name + ")");
-		if (!compatible(table2))
+		
+		if (!compatible(table2)) {
 			return null;
-
+		}
+		
 		List<Comparable[]> rows = null;
 
 		// TODO: T O B E I M P L E M E N T E D
@@ -292,9 +295,10 @@ public class Table implements Serializable {
 	 */
 	public Table minus(Table table2) {
 		out.println("RA> " + name + ".minus (" + table2.name + ")");
-		if (!compatible(table2))
+		
+		if (!compatible(table2)) {
 			return null;
-
+		}
 		List<Comparable[]> rows = null;
 
 		// TODO: T O B E I M P L E M E N T E D
@@ -322,9 +326,10 @@ public class Table implements Serializable {
 		// Iterate through tuples
 		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet())
 			// If key is in the table2 map then do not add to List
-			if (!table2.index.containsKey(e.getKey()))
+			if (!table2.index.containsKey(e.getKey())) {
 				rows.add(e.getValue());
-
+			}
+		
 		return new Table(name + count++, attribute, domain, key, rows);
 	} // minus
 
@@ -397,8 +402,9 @@ public class Table implements Serializable {
 	 */
 	public int col(String attr) {
 		for (int i = 0; i < attribute.length; i++) {
-			if (attr.equals(attribute[i]))
+			if (attr.equals(attribute[i])) {
 				return i;
+			}
 		} // for
 
 		return -1; // not found
@@ -417,7 +423,7 @@ public class Table implements Serializable {
 		out.println("DML> insert into " + name + " values ( "
 				+ Arrays.toString(tup) + " )");
 
-		if (typeCheck(tup)) {
+		if (typeCheck(tup, this.domain)) {
 			tuples.add(tup);
 			Comparable[] keyVal = new Comparable[key.length];
 			int[] cols = match(key);
@@ -600,12 +606,16 @@ public class Table implements Serializable {
 	 *
 	 * @param t
 	 *            the tuple as a list of attribute values
+	 * @param domain
+	 *            the set of possible acceptabtle classes for t
 	 * @return whether the tuple has the right size and values that comply with
 	 *         the given domains
 	 */
-	private boolean typeCheck(Comparable[] t) {
+	public static boolean typeCheck(Comparable[] t, Class[] domain) {
 
-		// TODO: VERIFY TUPLE STATE
+		if (t == null || domain == null) {
+			return false;
+		}
 
 		boolean currentItemValid;
 
@@ -615,7 +625,7 @@ public class Table implements Serializable {
 			currentItemValid = false;
 
 			// Verify input against all possibly classes within the domain
-			for (Class classTypes : this.domain) {
+			for (Class classTypes : domain) {
 
 				// If item is some subclass of a given type within domain,
 				// accept it
@@ -673,12 +683,12 @@ public class Table implements Serializable {
 
 		return obj;
 	} // extractDom
-	
-	//returns number of tuples (for validation)
+
+	// returns number of tuples (for validation)
 	public int size() {
 		// return the one with higher value
 		return (index.size() > tuples.size()) ? index.size() : tuples.size();
 	}
-	
+
 } // Table class
 
