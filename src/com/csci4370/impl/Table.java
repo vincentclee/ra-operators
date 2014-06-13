@@ -7,6 +7,8 @@ package com.csci4370.impl;
  */
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.security.MessageDigest;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -164,12 +166,30 @@ public class Table implements Serializable {
 
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
-
+		
+		/*
+		 * Used for checking if projected tuple is a duplicate (Avoids O(n^2) searching)
+		 * hashCode() is from original object not the projected object?
+		 */
+		List<Integer> deepHashCodes = new ArrayList<Integer>();
+		
 		// Iterate through tuples
 		for (Map.Entry<KeyType, Comparable[]> e : index.entrySet()) {
 			// use the extract method to only select the colums needed
+			Comparable[] tuple = extract(e.getValue(), attrs);
+			
+			// Generate a Deep Hash Code
+			int deepHashCode = Arrays.deepHashCode(tuple);
+			
+			// If this tuple is a duplicate, don't add to rows List
+			if (deepHashCodes.contains(deepHashCode))
+				continue;
+			
 			// add to the rows List
-			rows.add(extract(e.getValue(), attrs));
+			rows.add(tuple);
+			
+			// add to the deepHashCodes List
+			deepHashCodes.add(deepHashCode);
 		}
 
 		return new Table(name + count++, attrs, colDomain, newKey, rows);
@@ -655,6 +675,12 @@ public class Table implements Serializable {
 
 		return obj;
 	} // extractDom
-
+	
+	//returns number of tuples (for validation)
+	public int size() {
+		// return the one with higher value
+		return (index.size() > tuples.size()) ? index.size() : tuples.size();
+	}
+	
 } // Table class
 
