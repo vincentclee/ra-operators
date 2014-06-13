@@ -161,9 +161,7 @@ public class Table implements Serializable {
 				: attrs;
 
 		List<Comparable[]> rows = null;
-
-		// TODO: T O B E I M P L E M E N T E D
-
+		
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
 		
