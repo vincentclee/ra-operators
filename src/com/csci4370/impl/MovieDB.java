@@ -77,7 +77,7 @@ class MovieDB {
 		starsIn.insert(cast0);
 		starsIn.print();
 
-		Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00 };
+		Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00f };
 		out.println();
 		movieExec.insert(exec0);
 		movieExec.print();
