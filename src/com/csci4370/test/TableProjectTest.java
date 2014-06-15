@@ -1,5 +1,11 @@
 package com.csci4370.test;
 
+/****************************************************************************************
+ * @file TableProjectTest.java
+ *
+ * @author Vincent Lee
+ */
+
 import static java.lang.System.out;
 import static org.junit.Assert.*;
 
@@ -8,6 +14,15 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for the relational algebra operator: PROJECT
+ * 
+ * A test with no duplicates is preformed.
+ * Duplicate tests are also preformed to correctly verify rows returned.
+ * 
+ * A debug switch is included to turn off console print outs.
+ * 
+ */
 public class TableProjectTest {
 	// Testing data
 	private Table movie;
