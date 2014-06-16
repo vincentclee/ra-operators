@@ -208,8 +208,6 @@ public class Table implements Serializable {
 
 		List<Comparable[]> rows = null;
 
-		// TODO: T O B E I M P L E M E N T E D
-
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
 
@@ -235,8 +233,6 @@ public class Table implements Serializable {
 		out.println("RA> " + name + ".select (" + keyVal + ")");
 
 		List<Comparable[]> rows = null;
-
-		// TODO: T O B E I M P L E M E N T E D
 
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
@@ -264,8 +260,6 @@ public class Table implements Serializable {
 		}
 		
 		List<Comparable[]> rows = null;
-
-		// TODO: T O B E I M P L E M E N T E D
 
 		// Intialize data structure
 		rows = new ArrayList<>();
@@ -300,8 +294,6 @@ public class Table implements Serializable {
 			return null;
 		}
 		List<Comparable[]> rows = null;
-
-		// TODO: T O B E I M P L E M E N T E D
 
 		/*
 		 * http://www.orafaq.com/wiki/Minus
@@ -358,8 +350,6 @@ public class Table implements Serializable {
 		String[] u_attrs = attributes2.split(" ");
 
 		List<Comparable[]> rows = null;
-
-		// TODO: T O B E I M P L E M E N T E D
 
 		// Intialize data structure
 		rows = new ArrayList<Comparable[]>();
