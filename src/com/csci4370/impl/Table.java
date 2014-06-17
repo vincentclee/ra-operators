@@ -109,7 +109,7 @@ public class Table implements Serializable {
 	 *            the string containing attribute domains (data types)
 	 * @param _key
 	 *            the primary key
-	 * @param _tuple
+	 * @param _tuples
 	 *            the list of tuples containing the data
 	 */
 	public Table(String _name, String[] _attribute, Class[] _domain,
@@ -131,6 +131,8 @@ public class Table implements Serializable {
 	 *            the string containing attributes names
 	 * @param domains
 	 *            the string containing attribute domains (data types)
+	 * @param _key
+	 * 			  the string containing table key
 	 */
 	public Table(String name, String attributes, String domains, String _key) {
 		this(name, attributes.split(" "), findClass(domains.split(" ")), _key
@@ -342,12 +344,12 @@ public class Table implements Serializable {
 	 *            the rhs table in the join operation
 	 * @return a table with tuples satisfying the equality predicate
 	 */
-	public Table join(String attributes1, String attributes2, Table table2) {
-		out.println("RA> " + name + ".join (" + attributes1 + ", "
-				+ attributes2 + ", " + table2.name + ")");
+	public Table join(String attribute1, String attribute2, Table table2) {
+		out.println("RA> " + name + ".join (" + attribute1 + ", "
+				+ attribute2 + ", " + table2.name + ")");
 
-		String[] t_attrs = attributes1.split(" ");
-		String[] u_attrs = attributes2.split(" ");
+		String[] t_attrs = attribute1.split(" ");
+		String[] u_attrs = attribute2.split(" ");
 
 		List<Comparable[]> rows = null;
 
@@ -487,6 +489,7 @@ public class Table implements Serializable {
 	 *
 	 * @param name
 	 *            the name of the table to load
+	 * @return a Table
 	 */
 	public static Table load(String name) {
 		Table tab = null;

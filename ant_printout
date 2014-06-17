@@ -1,0 +1,64 @@
+Script started on Tue 17 Jun 2014 06:18:27 PM EDT
+]0;vincentlee@centos:~/Downloads/ra-operators[vincentlee@centos ra-operators]$ ant
+Buildfile: /home/vincentlee/Downloads/ra-operators/build.xml
+
+init:
+    [mkdir] Created dir: /home/vincentlee/Downloads/ra-operators/bin
+
+build:
+    [javac] Compiling 12 source files to /home/vincentlee/Downloads/ra-operators/bin
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] Creating empty /home/vincentlee/Downloads/ra-operators/bin/com/csci4370/impl/package-info.class
+    [javac] Creating empty /home/vincentlee/Downloads/ra-operators/bin/com/csci4370/test/package-info.class
+
+test:
+    [mkdir] Created dir: /home/vincentlee/Downloads/ra-operators/junit
+    [junit] Running com.csci4370.test.TableJoinTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 sec
+    [junit] Running com.csci4370.test.TableMinusTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.077 sec
+    [junit] Running com.csci4370.test.TableSelectTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.19 sec
+    [junit] Running com.csci4370.test.TableProjectTest
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.12 sec
+    [junit] Running com.csci4370.test.TableTypeCheckTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 sec
+    [junit] Running com.csci4370.test.TableUnionTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.136 sec
+
+MovieDB:
+     [echo] Standard Output: stdout.txt
+     [echo] Standard Error: stderr.txt
+
+javadoc:
+  [javadoc] Generating Javadoc
+  [javadoc] Javadoc execution
+  [javadoc] Loading source files for package com.csci4370.impl...
+  [javadoc] Loading source files for package com.csci4370.test...
+  [javadoc] Constructing Javadoc information...
+  [javadoc] Creating destination directory: "/home/vincentlee/Downloads/ra-operators/doc/"
+  [javadoc] Standard Doclet version 1.8.0_05
+  [javadoc] Building tree for all the packages and classes...
+  [javadoc] /home/vincentlee/Downloads/ra-operators/src/com/csci4370/impl/KeyType.java:53: error: bad use of '>'
+  [javadoc] 	 * Compare two keys (negative => less than, zero => equals, positive =>
+  [javadoc] 	                               ^
+  [javadoc] /home/vincentlee/Downloads/ra-operators/src/com/csci4370/impl/KeyType.java:53: error: bad use of '>'
+  [javadoc] 	 * Compare two keys (negative => less than, zero => equals, positive =>
+  [javadoc] 	                                                  ^
+  [javadoc] /home/vincentlee/Downloads/ra-operators/src/com/csci4370/impl/KeyType.java:53: error: bad use of '>'
+  [javadoc] 	 * Compare two keys (negative => less than, zero => equals, positive =>
+  [javadoc] 	                                                                      ^
+  [javadoc] /home/vincentlee/Downloads/ra-operators/src/com/csci4370/impl/Table.java:202: error: bad use of '>'
+  [javadoc] 	 * #usage movie.select (t -> t[movie.col("year")].equals (1977))
+  [javadoc] 	                           ^
+  [javadoc] Building index for all the packages and classes...
+  [javadoc] Building index for all classes...
+  [javadoc] Generating /home/vincentlee/Downloads/ra-operators/doc/help-doc.html...
+  [javadoc] 4 errors
+
+BUILD SUCCESSFUL
+Total time: 8 seconds
+]0;vincentlee@centos:~/Downloads/ra-operators[vincentlee@centos ra-operators]$ exit
+
+Script done on Tue 17 Jun 2014 06:19:05 PM EDT

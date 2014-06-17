@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="test" name="ra-operators">
+<project basedir="." default="javadoc" name="ra-operators">
 	<property name="junit.output.dir" value="junit"/>
-		<path id="JUnit 4.libraryclasspath">
+		<path id="JUnit4.libraryclasspath">
 			<pathelement location="lib/junit-4.11.jar"/>
 			<pathelement location="lib/hamcrest-core-1.3.jar"/>
-    	</path>
+    		</path>
 		<path id="com.csci4370.classpath">
 			<pathelement location="bin"/>
-			<path refid="JUnit 4.libraryclasspath"/>
+			<path refid="JUnit4.libraryclasspath"/>
 		</path>
 	<target name="init">
 		<mkdir dir="bin"/>
@@ -22,24 +22,36 @@
 		<delete dir="bin"/>
 	</target>
 	<target depends="init" name="build">
-		<javac compiler="1.8" srcdir="src" destdir="bin" includeAntRuntime="no" listfiles="no">
+		<javac target="1.8" source="1.8" srcdir="src" destdir="bin" includeAntRuntime="no" listfiles="no">
 			<classpath refid="com.csci4370.classpath"/>
 		</javac>
 	</target>
 	<target depends="build" name="test">
 		<mkdir dir="${junit.output.dir}"/>
-		<junit fork="yes" printsummary="withOutAndErr">
+		<junit fork="yes" printsummary="on">
 			<formatter type="xml"/>
+			<test name="com.csci4370.test.TableJoinTest" todir="${junit.output.dir}"/>
+			<test name="com.csci4370.test.TableMinusTest" todir="${junit.output.dir}"/>
+			<test name="com.csci4370.test.TableSelectTest" todir="${junit.output.dir}"/>
 			<test name="com.csci4370.test.TableProjectTest" todir="${junit.output.dir}"/>
+			<test name="com.csci4370.test.TableTypeCheckTest" todir="${junit.output.dir}"/>
+			<test name="com.csci4370.test.TableUnionTest" todir="${junit.output.dir}"/>
 			<classpath refid="com.csci4370.classpath"/>
 		</junit>
 	</target>
-	<target depends="test" name="runner">
-		<java classname="com.csci4370.impl.MovieDB" failonerror="true" fork="yes">
+	<target depends="test" name="MovieDB">
+		<java classname="com.csci4370.impl.MovieDB" failonerror="true" fork="yes" output="stdout.txt" error="stderr.txt">
 			<classpath refid="com.csci4370.classpath"/>
-        </java>
+        	</java>
+		<echo message="Standard Output: stdout.txt"/>
+		<echo message="Standard Error: stderr.txt"/>
 	</target>
-	<target name="junitreport">
+    <target depends="MovieDB" name="javadoc">
+        <javadoc access="private" destdir="doc" packagenames="com.csci4370.test,com.csci4370.impl" source="1.8" sourcepath="src" splitindex="true" use="true" version="true">
+		<classpath refid="com.csci4370.classpath"/>
+	</javadoc>
+    </target>
+	<target depends="MovieDB" name="junitreport">
 		<junitreport todir="${junit.output.dir}">
 			<fileset dir="${junit.output.dir}">
 				<include name="TEST-*.xml"/>

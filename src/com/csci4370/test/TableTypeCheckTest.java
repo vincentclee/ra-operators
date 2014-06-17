@@ -6,6 +6,10 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for: TypeCheck
+ * 
+ */
 public class TableTypeCheckTest extends TestCase {
 
 	private Class[] testDomain;

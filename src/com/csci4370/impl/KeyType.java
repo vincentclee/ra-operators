@@ -37,8 +37,10 @@ public class KeyType implements Comparable<KeyType>, Serializable {
 	 * Construct an instance of KeyType from a Comparable variable argument
 	 * list.
 	 * 
-	 * @param _key
+	 * @param key0
 	 *            the primary key
+	 * @param keys
+	 *            key array
 	 */
 	public KeyType(Comparable key0, Comparable... keys) {
 		key = new Comparable[keys.length + 1];

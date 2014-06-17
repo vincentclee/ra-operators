@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for the relational algebra operator: SELECT
+ * 
+ * A debug switch is included to turn off console print outs.
+ */
 public class TableSelectTest extends TestCase {
 	private Table movie;
 	private static final boolean DEBUG = false;

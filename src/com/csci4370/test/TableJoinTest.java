@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for the relational algebra operator: JOIN
+ * 
+ * A debug switch is included to turn off console print outs.
+ */
 public class TableJoinTest extends TestCase {
 	private Table movie, cinema, movieStar, starsIn, movieExec, studio;
 	private static final boolean DEBUG = false;

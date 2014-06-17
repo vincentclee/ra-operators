@@ -10,18 +10,22 @@ import java.util.Arrays;
 
 import static java.lang.System.arraycopy;
 
+/*****************************************************************************************
+ * The ArrayUtil class provides functions related to arrays. A concat method 
+ * concatenate two arrays of type T to form a new wider array.
+ */
 class ArrayUtil {
 	/************************************************************************************
 	 * Concatenate two arrays of type T to form a new wider array.
 	 *
-	 * @see http
-	 *      ://stackoverflow.com/questions/80476/how-to-concatenate-two-arrays
-	 *      -in-java
+	 * http://stackoverflow.com/questions/80476/how-to-concatenate-two-arrays-in-java
 	 *
 	 * @param arr1
 	 *            the first array
 	 * @param arr2
 	 *            the second array
+	 * @param <T>
+	 *            type parameter
 	 * @return a wider array containing all the values from arr1 and arr2
 	 */
 	public static <T> T[] concat(T[] arr1, T[] arr2) {

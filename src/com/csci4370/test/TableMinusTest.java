@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for the relational algebra operator: MINUS
+ * 
+ * A debug switch is included to turn off console print outs.
+ */
 public class TableMinusTest extends TestCase {
 	
 

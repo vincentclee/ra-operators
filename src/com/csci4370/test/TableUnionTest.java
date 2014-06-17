@@ -8,20 +8,22 @@ import org.junit.Test;
 
 import com.csci4370.impl.Table;
 
+/****************************************************************************************
+ * This class implements tests for the relational algebra operator: UNION
+ * 
+ * A debug switch is included to turn off console print outs.
+ */
 public class TableUnionTest {
-
 	/**
-	 * @param movie
-	 *            The table containing the movies
-	 * @param cinema
-	 *            The table containing the cinemas
+	 * The table containing the movies
 	 */
 	private Table movie;
+	/**
+	 * The table containing the cinemas
+	 */
 	private Table cinema;
 	/**
-	 * @param DEBUG
-	 *            for checking the state of the tables before pulling and
-	 *            pushing into them
+	 * for checking the state of the tables before pulling and pushing into them
 	 */
 	private static final boolean DEBUG = false;
 
