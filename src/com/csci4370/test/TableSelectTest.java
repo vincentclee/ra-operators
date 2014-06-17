@@ -25,25 +25,33 @@ public class TableSelectTest extends TestCase {
 		Comparable[] film4 = { "Galaxy_Quest", 1999, 104, "comedy",
 				"DreamWorks", 67890 };
 
-		if (DEBUG)
+		if (DEBUG) {
 			System.out.println();
+		}
 		movie.insert(film0);
 		movie.insert(film1);
 		movie.insert(film2);
 		movie.insert(film3);
 		movie.insert(film4);
-		if (DEBUG)
+		if (DEBUG) {
 			movie.print();
+		}
 	}// setUp
 
+	/**
+	 * All of these test cases should be refactored to use a single helper method for the debug state.
+	 * - Collin Watts, 6/17/14
+	 */
+	
 	@Test
 	public void testSelect1() {
+		
 		// title == "Star_Wars" AND year == 1977
 		Table t_select1 = movie.select(t -> t[movie.col("title")]
 				.equals("Star_Wars") && t[movie.col("year")].equals(1977));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select1.print();
-
+		}
 		assertEquals("testSelect1", t_select1.size(), 1);
 	}// testSelect1
 
@@ -51,9 +59,9 @@ public class TableSelectTest extends TestCase {
 	public void testSelect2() {
 		// length == 124
 		Table t_select2 = movie.select(t -> t[movie.col("length")].equals(124));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select2.print();
-
+		}
 		assertEquals("testSelect2", t_select2.size(), 2);
 	}// testSelect2
 
@@ -62,9 +70,9 @@ public class TableSelectTest extends TestCase {
 		// genre == "action"
 		Table t_select3 = movie.select(t -> t[movie.col("genre")]
 				.equals("action"));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select3.print();
-
+		}
 		assertEquals("testSelect3", t_select3.size(), 2);
 	}// testSelect3
 
@@ -73,9 +81,9 @@ public class TableSelectTest extends TestCase {
 		// producerNo > 0
 		Table t_select4 = movie.select(t -> t[movie.col("producerNo")]
 				.compareTo(0) > 0);
-		if (DEBUG)
+		if (DEBUG) {
 			t_select4.print();
-
+		}
 		assertEquals("testSelect4", t_select4.size(), 5);
 	}// testSelect4
 
@@ -85,9 +93,9 @@ public class TableSelectTest extends TestCase {
 		Table t_select5 = movie.select(t -> t[movie.col("genre")]
 				.equals("sciFi")
 				|| t[movie.col("studioName")].equals("Universal"));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select5.print();
-
+		}
 		assertEquals("testSelect5", t_select5.size(), 4);
 	}// testSelect5
 
@@ -97,9 +105,9 @@ public class TableSelectTest extends TestCase {
 		Table t_select6 = movie.select(t -> t[movie.col("genre")]
 				.equals("sciFi")
 				&& t[movie.col("studioName")].equals("Universal"));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select6.print();
-
+		}
 		assertEquals("testSelect6", t_select6.size(), 0);
 	}// testSelect6
 
@@ -108,9 +116,9 @@ public class TableSelectTest extends TestCase {
 		// year <= 1980
 		Table t_select7 = movie.select(t -> t[movie.col("year")]
 				.compareTo(1980) <= 0);
-		if (DEBUG)
+		if (DEBUG) {
 			t_select7.print();
-
+		}
 		assertEquals("testSelect7", t_select7.size(), 3);
 	}// testSelect7
 
@@ -124,9 +132,9 @@ public class TableSelectTest extends TestCase {
 				&& t[movie.col("genre")].equals("comedy")
 				&& t[movie.col("studioName")].equals("DreamWorks")
 				&& t[movie.col("producerNo")].equals(67890));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select8.print();
-
+		}
 		assertEquals("testSelect8", t_select8.size(), 1);
 	}// testSelect8
 
@@ -135,9 +143,9 @@ public class TableSelectTest extends TestCase {
 		// title == "Blade_Runner"
 		Table t_select9 = movie.select(t -> t[movie.col("title")]
 				.equals("Blade_Runner"));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select9.print();
-
+		}
 		assertEquals("testSelect9", t_select9.size(), 0);
 	}// testSelect9
 
@@ -146,9 +154,9 @@ public class TableSelectTest extends TestCase {
 		// title != "Blade_Runner"
 		Table t_select10 = movie.select(t -> !t[movie.col("title")]
 				.equals("Blade_Runner"));
-		if (DEBUG)
+		if (DEBUG) {
 			t_select10.print();
-
+		}
 		assertEquals("testSelect10", t_select10.size(), 5);
 	}// testSelect10
 }// TableSelectTest
