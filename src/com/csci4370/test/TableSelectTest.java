@@ -33,6 +33,7 @@ public class TableSelectTest extends TestCase {
 		movie.insert(film2);
 		movie.insert(film3);
 		movie.insert(film4);
+		
 		if (DEBUG) {
 			movie.print();
 		}

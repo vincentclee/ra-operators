@@ -11,12 +11,16 @@ import com.csci4370.impl.Table;
 public class TableMinusTest extends TestCase {
 	
 
-	private Table movie, cinema, movieStar, starsIn, movieExec, studio;
+	private Table movie, movie2, cinema, movieStar;
 	private static final boolean DEBUG = false;
 	
 	@Before
 	public void setUp() {
 		movie = new Table("movie",
+				"title year length genre studioName producerNo",
+				"String Integer Integer String String Integer", "title year");
+		
+		movie2 = new Table("movie2",
 				"title year length genre studioName producerNo",
 				"String Integer Integer String String Integer", "title year");
 
@@ -27,19 +31,12 @@ public class TableMinusTest extends TestCase {
 		movieStar = new Table("movieStar", "name address gender birthdate",
 				"String String Character String", "name");
 
-		starsIn = new Table("starsIn", "movieTitle movieYear starName",
-				"String Integer String", "movieTitle movieYear starName");
-
-		movieExec = new Table("movieExec", "certNo name address fee",
-				"Integer String String Float", "certNo");
-
-		studio = new Table("studio", "name address presNo",
-				"String String Integer", "name");
-
 		Comparable[] film0 = { "Star_Wars", 1977, 124, "sciFi", "Fox", 12345 };
 		Comparable[] film1 = { "Star_Wars_2", 1980, 124, "sciFi", "Fox", 12345 };
 		Comparable[] film2 = { "Rocky", 1985, 200, "action", "Universal", 12125 };
 		Comparable[] film3 = { "Rambo", 1978, 100, "action", "Universal", 32355 };
+		Comparable[] film4 = { "Galaxy_Quest", 1999, 104, "comedy",
+				"DreamWorks", 67890 };
 
 		if (DEBUG) {
 			System.out.println();
@@ -54,8 +51,18 @@ public class TableMinusTest extends TestCase {
 			movie.print();
 		}
 		
-		Comparable[] film4 = { "Galaxy_Quest", 1999, 104, "comedy",
+		Comparable[] film2a = { "Rocky", 1985, 200, "action", "Universal", 12125 };
+		Comparable[] film3a = { "Rambo", 1978, 100, "action", "Universal", 32355 };
+		Comparable[] film4a = { "Galaxy_Quest", 1999, 104, "comedy",
 				"DreamWorks", 67890 };
+		
+		if (DEBUG) {
+			System.out.println();
+		}
+		
+		movie2.insert(film2a);
+		movie2.insert(film3a);
+		movie2.insert(film3a);
 		
 		if (DEBUG) {
 			System.out.println();
@@ -89,43 +96,17 @@ public class TableMinusTest extends TestCase {
 		Comparable[] cast1 = { "Star_Wars", 1976, "Mark_Hamill" };
 		Comparable[] cast2 = { "Star_Wars", 1920, "Harrison_Ford" };
 		
-		if (DEBUG) {
-			System.out.println();
-		}
-		
-		starsIn.insert(cast0);
-		starsIn.insert(cast1);
-		starsIn.insert(cast2);
-		
-		if (DEBUG) {
-			starsIn.print();
-		}
 
 		Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00f };
 		
 		if (DEBUG) {
 			System.out.println();
 		}
-		
-		movieExec.insert(exec0);
-		
-		if (DEBUG) {
-			movieExec.print();
-		}
+
 		Comparable[] studio0 = { "Fox", "Los_Angeles", 7777 };
 		Comparable[] studio1 = { "Universal", "Universal_City", 8888 };
 		Comparable[] studio2 = { "DreamWorks", "Universal_City", 9999 };
-		
-		if (DEBUG) {
-			System.out.println();
-		}
-		studio.insert(studio0);
-		studio.insert(studio1);
-		studio.insert(studio2);
-		
-		if (DEBUG) {
-			studio.print();
-		}
+	
 	}// setUp
 	
 	
@@ -150,5 +131,17 @@ public class TableMinusTest extends TestCase {
 
 		assertEquals("testMinus2", t_minus2.size(), 2);
 	}// testMinus2
+	
+	@Test
+	public void testMinus3() {
+		Table t_minus3 = movie.minus(movie2);
+		if (DEBUG) {
+			System.out.println();
+			t_minus3.print();
+		}
+
+		assertEquals("testMinus3", t_minus3.size(), 2);
+	}// testMinus2
+	
 	
 }
