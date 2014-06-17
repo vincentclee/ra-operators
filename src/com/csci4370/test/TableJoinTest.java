@@ -3,7 +3,10 @@ package com.csci4370.test;
 import static org.junit.Assert.*;
 import junit.framework.TestCase;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import com.csci4370.impl.Table;
 
 public class TableJoinTest extends TestCase 
 {
@@ -63,8 +66,12 @@ public class TableJoinTest extends TestCase
     if(DEBUG) movieStar.print();
     
     Comparable[] cast0 = { "Star_Wars", 1977, "Carrie_Fisher" };
+	Comparable[] cast1 = { "Star_Wars", 1976, "Mark_Hamill" };
+	Comparable[] cast2 = { "Star_Wars", 1920, "Harrison_Ford" };
     if(DEBUG) System.out.println();
     starsIn.insert(cast0);
+    starsIn.insert(cast1);
+    starsIn.insert(cast2);
     if(DEBUG) starsIn.print();
     
     Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00f };
@@ -97,7 +104,7 @@ public class TableJoinTest extends TestCase
     Table t_join2 = movie.join("title year", "title year", cinema);
     if(DEBUG) {System.out.println(); t_join2.print();}
 
-    assertEquals("testJoin2", t_join2.size(), 3);
+    assertEquals("testJoin2", t_join2.size(), 2);
   }// testJoin2
   
   @Test
@@ -106,12 +113,12 @@ public class TableJoinTest extends TestCase
     Table t_join3 = movieStar.join("name", "starName", starsIn);
     if(DEBUG) {System.out.println(); t_join3.print();}
     
-    assertEquals("testJoin3", t_join3.size(), 1);
+    assertEquals("testJoin3", t_join3.size(), 0);
 
     Table t_join4 = t_join3.join("movieYear", "year", movie);
     if(DEBUG) {System.out.println(); t_join4.print();}
     
-    assertEquals("testJoin4", t_join4.size(), 1);
+    assertEquals("testJoin4", t_join4.size(), 0);
   }// testJoin3
 
   @Test

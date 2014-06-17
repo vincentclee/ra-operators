@@ -3,7 +3,10 @@ package com.csci4370.test;
 import static org.junit.Assert.*;
 import junit.framework.TestCase;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import com.csci4370.impl.Table;
 
 public class TableSelectTest extends TestCase 
 {
