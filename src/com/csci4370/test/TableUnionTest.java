@@ -6,19 +6,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.csci4370.impl.Table;
-
 @SuppressWarnings("unused")
 public class TableUnionTest {
+	/**
+	 * @author DBgroup
+	 * This class tests RA function Union
+	 */
 
 
 		// testing data
-		
+		/**
+		 * @param movie The table containing the movies
+		 * @param cinema The table containing the cinemas
+		 */
 		private Table movie;
 		private Table cinema;
+		/**
+		 * @param DEBUG for checking the state of the tables before pulling and pushing into them
+		 */
 		private static final boolean DEBUG = false;
 		@SuppressWarnings("rawtypes")
 		@Before
+		/**
+		 * This initializes the tables with appropriate data
+		 * @throws Exception 
+		 * 
+		 */
 		public void setUp() throws Exception {
+			
 			movie = new Table("movie",
 					"title year length genre studioName producerNo",
 					"String Integer Integer String String Integer", "title year");
@@ -70,7 +85,7 @@ public class TableUnionTest {
 			starsIn.insert(cast0);
 			if(DEBUG) starsIn.print();
 
-			Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00f };
+			Comparable[] exec0 = { 9999, "S_Spielberg", "Hollywood", 10000.00 };
 			if(DEBUG) out.println();
 			movieExec.insert(exec0);
 			if(DEBUG) movieExec.print();
@@ -86,10 +101,26 @@ public class TableUnionTest {
 		}
 		
 		@Test
+		/**
+		 * This function tests the Union function. It passes a table to the funcion and do a union 
+		 * with another table and checks the number of tuples that the new table should represents
+		 * @testUnion it does a union on two tables, caller of union and its parameter table and checks
+		 * whether the number of tuples matches as supposed
+		 * @param t_union It is the table created by doing a union on two tables
+		 *
+		 */
 		public void testUnion()
 		{
 			Table t_union = movie.union(cinema);
+			/**
+			 * assertEquals takes three parameters, the number of tuples, the actual size of the union table, 
+			 * and the predicted number of tuples for checking the correctness.
+			 * If the number of tuples is as predicted the test results are successful. 
+			 */
 			assertEquals("# of tuples",t_union.size(),7);
 			
 		}
+		
+		
+
 }
