@@ -1,11 +1,5 @@
 package com.csci4370.test;
 
-/****************************************************************************************
- * @file TableProjectTest.java
- *
- * @author Vincent Lee
- */
-
 import static java.lang.System.out;
 import static org.junit.Assert.*;
 

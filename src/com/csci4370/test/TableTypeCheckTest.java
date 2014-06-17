@@ -1,15 +1,10 @@
 package com.csci4370.test;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import com.csci4370.impl.Table;
-//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class TableTypeCheckTest extends TestCase {
 

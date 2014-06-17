@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.csci4370.impl.Table;
+
 @SuppressWarnings("unused")
 public class TableUnionTest {
 
@@ -91,7 +92,4 @@ public class TableUnionTest {
 			assertEquals("# of tuples",t_union.size(),7);
 			
 		}
-		
-		
-
 }
