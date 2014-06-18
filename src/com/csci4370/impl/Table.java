@@ -513,8 +513,15 @@ public class Table implements Serializable {
 	 */
 	public void save() {
 		try {
+			//Create the directory if it does not exist
+			File oosDirectory = new File(DIR);
+			if(!oosDirectory.exists()) {
+				oosDirectory.mkdir();
+			} 
+			
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream(DIR + name + EXT));
+			
 			oos.writeObject(this);
 			oos.close();
 		} catch (IOException ex) {
