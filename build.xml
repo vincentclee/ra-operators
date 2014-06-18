@@ -47,7 +47,7 @@
 		<echo message="Standard Error: stderr.txt"/>
 	</target>
     <target depends="MovieDB" name="javadoc">
-        <javadoc access="private" destdir="doc" packagenames="com.csci4370.test,com.csci4370.impl" source="1.8" sourcepath="src" splitindex="true" use="true" version="true">
+    	<javadoc access="private" author="true" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.csci4370.test,com.csci4370.impl" source="1.8" sourcepath="src" splitindex="true" use="true" version="true">
 		<classpath refid="com.csci4370.classpath"/>
 	</javadoc>
     </target>

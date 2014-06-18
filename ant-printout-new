@@ -1,0 +1,50 @@
+Script started on Wed 18 Jun 2014 12:51:59 PM EDT
+]0;vincentlee@centos:~/Documents/ra-operators[?1034h[vincentlee@centos ra-operators]$ ant
+Buildfile: /home/vincentlee/Documents/ra-operators/build.xml
+
+init:
+    [mkdir] Created dir: /home/vincentlee/Documents/ra-operators/bin
+
+build:
+    [javac] Compiling 12 source files to /home/vincentlee/Documents/ra-operators/bin
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] Creating empty /home/vincentlee/Documents/ra-operators/bin/com/csci4370/impl/package-info.class
+    [javac] Creating empty /home/vincentlee/Documents/ra-operators/bin/com/csci4370/test/package-info.class
+
+test:
+    [mkdir] Created dir: /home/vincentlee/Documents/ra-operators/junit
+    [junit] Running com.csci4370.test.TableJoinTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.169 sec
+    [junit] Running com.csci4370.test.TableMinusTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.11 sec
+    [junit] Running com.csci4370.test.TableSelectTest
+    [junit] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.186 sec
+    [junit] Running com.csci4370.test.TableProjectTest
+    [junit] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 sec
+    [junit] Running com.csci4370.test.TableTypeCheckTest
+    [junit] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 sec
+    [junit] Running com.csci4370.test.TableUnionTest
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.101 sec
+
+MovieDB:
+     [echo] Standard Output: stdout.txt
+     [echo] Standard Error: stderr.txt
+
+javadoc:
+  [javadoc] Generating Javadoc
+  [javadoc] Javadoc execution
+  [javadoc] Loading source files for package com.csci4370.impl...
+  [javadoc] Loading source files for package com.csci4370.test...
+  [javadoc] Constructing Javadoc information...
+  [javadoc] Creating destination directory: "/home/vincentlee/Documents/ra-operators/doc/"
+  [javadoc] Standard Doclet version 1.8.0_05
+  [javadoc] Building tree for all the packages and classes...
+  [javadoc] Building index for all the packages and classes...
+  [javadoc] Building index for all classes...
+
+BUILD SUCCESSFUL
+Total time: 8 seconds
+]0;vincentlee@centos:~/Documents/ra-operators[vincentlee@centos ra-operators]$ exit
+
+Script done on Wed 18 Jun 2014 12:52:15 PM EDT

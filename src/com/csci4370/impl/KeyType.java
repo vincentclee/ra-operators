@@ -50,7 +50,7 @@ public class KeyType implements Comparable<KeyType>, Serializable {
 	} // constructor
 
 	/*************************************************************************************
-	 * Compare two keys (negative => less than, zero => equals, positive =>
+	 * Compare two keys (negative ={@literal >} less than, zero ={@literal >} equals, positive ={@literal >}
 	 * greater than).
 	 * 
 	 * @param k

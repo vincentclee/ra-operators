@@ -199,7 +199,7 @@ public class Table implements Serializable {
 	/************************************************************************************
 	 * Select the tuples satisfying the given predicate (Boolean function).
 	 *
-	 * #usage movie.select (t -> t[movie.col("year")].equals (1977))
+	 * #usage movie.select (t -{@literal >} t[movie.col("year")].equals (1977))
 	 *
 	 * @param predicate
 	 *            the check condition for tuples
